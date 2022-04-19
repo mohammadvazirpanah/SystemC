@@ -8,7 +8,8 @@
 int sc_main(int argc, char **argv)
 {
 
-    top top("top");
+    dy dy1("top");
+
 
     sc_start();   
 	
