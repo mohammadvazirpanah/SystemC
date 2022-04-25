@@ -10,17 +10,14 @@
 using namespace sc_core;
 using namespace std;
 
-class top : public sc_module
+
+
+SC_MODULE(top) 
 {
+	
+	SC_CTOR(top) 
 
-    public:
-
-    SC_HAS_PROCESS (top);
-
-    top(sc_module_name name) : sc_module(name)
-    {
-        // SC_THREAD(main);
-        // publisher();
+	{	
         int argc; 
         char **argv;
         ros::init(argc, argv, "publish");
@@ -32,33 +29,11 @@ class top : public sc_module
         msg.linear.y = 0;
         msg.linear.z = 0;
         pub.publish(msg);
-        ros::spin();
-       
-    }
-
-// SC_MODULE(top) 
-// {
-	
-
-// 	SC_CTOR(top) 
-
-// 	{	
-//         int argc; 
-//         char **argv;
-//         ros::init(argc, argv, "publish");
-//         ros::start();
-//         ros::NodeHandle n;
-//         ros::Publisher pub = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1000);
-//         geometry_msgs::Twist msg;
-//         msg.linear.x = 5;
-//         msg.linear.y = 0;
-//         msg.linear.z = 0;
-//         pub.publish(msg);
         
-//         ros::spin();
-// 	}
+        ros::spin();
+	}
 
-// };
+};
 
 
 // void main()
