@@ -1,4 +1,4 @@
-// #define SC_INCLUDE_DYNAMIC_PROCESSES
+#define SC_INCLUDE_DYNAMIC_PROCESSES
 #include <systemc.h>
 #include <ros/ros.h>
 #include "std_msgs/String.h"
@@ -20,33 +20,31 @@ class top : public sc_module
     top(sc_module_name name) : sc_module(name)
     {
 
-        int argc; 
-        char **argv;
-        ros::init(argc, argv, "publish");
-        ros::start();
-        ros::NodeHandle n;
-        ros::Publisher pub = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1000);
-        geometry_msgs::Twist msg;
-        msg.linear.x = 5;
-        msg.linear.y = 0;
-        msg.linear.z = 0;
-        pub.publish(msg);
-        ros::spin();
+        // int argc; 
+        // char **argv;
+        // ros::init(argc, argv, "publish");
+        // ros::start();
+        // ros::NodeHandle n;
+        // ros::Publisher pub = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1000);
+        // geometry_msgs::Twist msg;
+        // msg.linear.x = 5;
+        // msg.linear.y = 0;
+        // msg.linear.z = 0;
+        // pub.publish(msg);
+        // ros::spin();
+        SC_THREAD (main);
        
     }
 
 
 
-// void main()
-//     {
-//         // while (1)
-//         // std::cout <<"main";
-//         // publisher();
+void main()
+    {
+
         
-        
-//         // sc_process_handle publish = sc_spawn(sc_bind(&top::publisher, this));
-//         // wait(1,SC_MS);
-//     }
+        sc_process_handle publish = sc_spawn(sc_bind(&top::publisher, this));
+    
+    }
 
 
 void publisher ()
@@ -55,6 +53,8 @@ void publisher ()
     char **argv;
     ros::init(argc, argv, "publish");
     ros::start();
+    ros::Rate rate(1);
+    
     ros::NodeHandle n;
     ros::Publisher pub = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1000);
     geometry_msgs::Twist msg;
@@ -63,8 +63,17 @@ void publisher ()
     msg.linear.y = 0;
     msg.linear.z = 0;
 
-    pub.publish(msg);
-    ros::spin();
+
+
+    for (int i = 0; i < 5; i++)
+    
+    {
+        pub.publish(msg);
+        ros::spinOnce();
+        rate.sleep();
+    }
+
+
 
 }
 
