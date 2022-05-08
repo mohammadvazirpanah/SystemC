@@ -1,5 +1,5 @@
 EXTRACFLAGS = 
-EXTRA_LIBS =
+EXTRA_LIBS = 
 MODULE = run
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
@@ -13,7 +13,9 @@ OPT    = -O0 -std=c++11
 DEBUG  = -g
 
 SYSDIR = -I $(SYSTEMC)/include
-LIBDIR = -L. -L.. -L$(SYSTEMC)/lib-$(TARGET_ARCH)
+LIBDIR = -L. -L$(SYSTEMC)/lib-$(TARGET_ARCH)
+INCDIR = -I. $(SYSDIR) 
+RPATH = -rpath=/home/mohammad/systemc-2.3.3/lib-linux64
 
 ## Build with maximum gcc warning level
 #CFLAGS = -Wall -Wno-unknown-pragmas -pthread $(DEBUG) $(OPT) $(EXTRACFLAGS)
