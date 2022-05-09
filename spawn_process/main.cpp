@@ -1,5 +1,7 @@
 
-#include "top.hpp"
+// #include "top.hpp"
+#include "top1.hpp"
+
 #include <systemc.h>
 
 int sc_main(int argc, char **argv)
